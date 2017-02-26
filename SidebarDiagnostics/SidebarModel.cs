@@ -126,7 +126,7 @@ namespace SidebarDiagnostics.Models
             if (up.Days > 0)
                 UpTime = up.ToString("d'd 'h'h 'm'm 's's'");
             else
-                UpTime = up.ToString("'h'h 'm'm 's's'");
+                UpTime = up.ToString("h'h 'm'm 's's'");
 
             if (ShowDate)
             {
