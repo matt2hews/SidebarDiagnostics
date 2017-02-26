@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Threading;
 using SidebarDiagnostics.Monitoring;
 
@@ -117,17 +118,33 @@ namespace SidebarDiagnostics.Models
         private void UpdateClock()
         {
             DateTime _now = DateTime.Now;
+            DateTime _utc = DateTime.UtcNow;
 
             Time = _now.ToString(Framework.Settings.Instance.Clock24HR ? "H:mm:ss" : "h:mm:ss tt");
-
-            DateTime _utc = DateTime.UtcNow;
             UTCTime = _utc.ToString("H:mm:ss") + " UTC";
+            TimeSpan up = UpTimeSpan;
+            if (up.Days > 0)
+                UpTime = up.ToString("d'd 'h'h 'm'm 's's'");
+            else
+                UpTime = up.ToString("'h'h 'm'm 's's'");
 
             if (ShowDate)
             {
                 Date = _now.ToString(Framework.Settings.Instance.DateSetting.Format);
             }
         }
+
+		public TimeSpan UpTimeSpan
+		{
+			get
+			{
+				using (var uptime = new PerformanceCounter("System", "System Up Time"))
+				{
+					uptime.NextValue();       //Call this an extra time before reading its value
+					return TimeSpan.FromSeconds(uptime.NextValue());
+				}
+			}
+		}
 
         private void UpdateMonitors()
         {
@@ -261,6 +278,22 @@ namespace SidebarDiagnostics.Models
                 _utcTime = value;
 
                 NotifyPropertyChanged("UTCTime");
+            }
+        }
+
+        private string _upTime { get; set; }
+
+        public string UpTime
+        {
+            get
+            {
+                return _upTime;
+            }
+            set
+            {
+                _upTime = value;
+
+                NotifyPropertyChanged("UpTime");
             }
         }
 

@@ -97,6 +97,17 @@
                                                                 </Style>
                                                             </ContentControl.Style>
                                                         </ContentControl>
+                                                        <ContentControl>
+                                                            <ContentControl.Style>
+                                                                <Style TargetType="{x:Type ContentControl}">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <TextBlock Text="{Binding Path=UpTime, Mode=OneWay}" Margin="0,4,0,0" Style="{StaticResource AppText}" />
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </Style>
+                                                            </ContentControl.Style>
+                                                        </ContentControl>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Setter.Value>
