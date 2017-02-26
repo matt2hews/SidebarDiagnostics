@@ -120,6 +120,9 @@ namespace SidebarDiagnostics.Models
 
             Time = _now.ToString(Framework.Settings.Instance.Clock24HR ? "H:mm:ss" : "h:mm:ss tt");
 
+            DateTime _utc = DateTime.UtcNow;
+            UTCTime = _utc.ToString("H:mm:ss") + " UTC";
+
             if (ShowDate)
             {
                 Date = _now.ToString(Framework.Settings.Instance.DateSetting.Format);
@@ -242,6 +245,22 @@ namespace SidebarDiagnostics.Models
                 _time = value;
 
                 NotifyPropertyChanged("Time");
+            }
+        }
+
+        private string _utcTime { get; set; }
+
+        public string UTCTime
+        {
+            get
+            {
+                return _utcTime;
+            }
+            set
+            {
+                _utcTime = value;
+
+                NotifyPropertyChanged("UTCTime");
             }
         }
 

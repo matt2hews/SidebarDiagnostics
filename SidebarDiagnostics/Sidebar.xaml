@@ -81,6 +81,7 @@
                                                     
                                                     <StackPanel Style="{StaticResource MonitorPanel}">
                                                         <Label Content="{Binding Path=Time, Mode=OneWay}" Style="{StaticResource AppTitle}" />
+                                                        <Label Content="{Binding Path=UTCTime, Mode=OneWay}" Style="{StaticResource AppTitle}" />
                                                         <ContentControl>
                                                             <ContentControl.Style>
                                                                 <Style TargetType="{x:Type ContentControl}">
